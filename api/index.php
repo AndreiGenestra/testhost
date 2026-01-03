@@ -7,6 +7,6 @@
 </head>
 <body>
     <h1>Teste Para Host</h1>
-    <p>Se você está vendo esta página, o servidor está funcionando corretamente.</p>
+    <p>oie.</p>
 </body>
 </html>
