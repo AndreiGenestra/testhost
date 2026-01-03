@@ -1,0 +1,27 @@
+Itens OK:
+
+Mensgame de erro e redirecionamento no login; -- OK
+Não repetir informações; -- OK
+erro de login quando limpa historico -- OK
+aparecer livros pelo id (gênero) -- OK
+selecionar todos os livros de acordo com o genero -- OK
+Ler o livro -- OK
+Design;
+
+Itens pendentes:
+
+//Sistema de chat;
+
+aparecer livros ( andamento)
+Adicionar a função de favoritar;
+Barra de pesquisa funcionando;
+responsivo
+autenticação de cargos
+deletar livros
+criar comunidades e deletar (se cargo permitir)
+
+
+https://github.com/AndreiGenestra/tccgit.git
+
+
+selecionar todos os livros de acordo com o genero -- OK

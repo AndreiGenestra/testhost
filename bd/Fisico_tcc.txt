@@ -1,0 +1,126 @@
+-- Tabela de Usuários
+CREATE TABLE Usuario (
+    ID_Usuario INT PRIMARY KEY AUTO_INCREMENT,
+    Nome VARCHAR(50),
+    Idade INT,
+    Email VARCHAR(50) UNIQUE,
+    Senha VARCHAR(20),
+    Data_Cadastro DATE
+);
+
+-- Tabela de Administracao
+CREATE TABLE Administracao (
+    ID_Administracao INT PRIMARY KEY AUTO_INCREMENT,
+    ID_Usuario INT,
+    Nivel_Acesso VARCHAR(15),
+    fk_Livro_ID_Livro INT,
+    fk_Autor_ID_Autor INT,
+    UNIQUE (fk_Autor_ID_Autor, fk_Livro_ID_Livro, ID_Administracao, ID_Usuario),
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario) ON DELETE RESTRICT,
+    FOREIGN KEY (fk_Livro_ID_Livro) REFERENCES Livro(ID_Livro) ON DELETE RESTRICT,
+    FOREIGN KEY (fk_Autor_ID_Autor) REFERENCES Autor(ID_Autor) ON DELETE RESTRICT
+);
+
+-- Tabela Cadastro
+CREATE TABLE Cadastro (
+    ID_Cadastro INT PRIMARY KEY AUTO_INCREMENT,
+    Data_Cadastro DATE
+);
+
+-- Tabela Comunidade
+CREATE TABLE Comunidade (
+    ID_Comunidade INT PRIMARY KEY AUTO_INCREMENT,
+    Nome_Comunidade VARCHAR(20),
+    Descricao VARCHAR(150),
+    ID_Usuario INT,
+    fk_Postagem_ID_Postagem INT,
+    UNIQUE (ID_Usuario, fk_Postagem_ID_Postagem, ID_Comunidade, Nome_Comunidade),
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario) ON DELETE RESTRICT,
+    FOREIGN KEY (fk_Postagem_ID_Postagem) REFERENCES Postagem(ID_Postagem) ON DELETE RESTRICT
+);
+
+-- Tabela Genero
+CREATE TABLE Genero (
+    ID_Genero INT PRIMARY KEY AUTO_INCREMENT,
+    Classificacao VARCHAR(50),
+    UNIQUE (Classificacao)
+);
+
+-- Tabela Livro
+CREATE TABLE Livro (
+    ID_Livro INT PRIMARY KEY AUTO_INCREMENT,
+    Titulo VARCHAR(20),
+    Sinopse VARCHAR(150),
+    ISBN INT,
+    Idioma VARCHAR(20),
+    PDF BLOB,
+    Editora VARCHAR(20),
+    ID_Genero INT,
+    UNIQUE (ID_Livro, ID_Genero),
+    FOREIGN KEY (ID_Genero) REFERENCES Genero(ID_Genero) ON DELETE RESTRICT
+);
+
+-- Tabela Autor
+CREATE TABLE Autor (
+    ID_Autor INT PRIMARY KEY AUTO_INCREMENT,
+    Nome_Autor VARCHAR(50),
+    fk_Livro_ID_Livro INT,
+    UNIQUE (ID_Autor, Nome_Autor, fk_Livro_ID_Livro),
+    FOREIGN KEY (fk_Livro_ID_Livro) REFERENCES Livro(ID_Livro) ON DELETE RESTRICT
+);
+
+-- Tabela Postagem
+CREATE TABLE Postagem (
+    ID_Postagem INT PRIMARY KEY AUTO_INCREMENT,
+    Conteudo VARCHAR(150),
+    Data_Postagem DATE,
+    ID_Comunidade INT,
+    ID_Usuario INT,
+    fk_PDF_Postagem_ID_PDF_Postagem INT,
+    UNIQUE (ID_Postagem, fk_PDF_Postagem_ID_PDF_Postagem, ID_Usuario, ID_Comunidade),
+    FOREIGN KEY (ID_Comunidade) REFERENCES Comunidade(ID_Comunidade) ON DELETE RESTRICT,
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario) ON DELETE RESTRICT,
+    FOREIGN KEY (fk_PDF_Postagem_ID_PDF_Postagem) REFERENCES PDF_Postagem(ID_PDF_Postagem) ON DELETE RESTRICT
+);
+
+-- Tabela PDF_Postagem
+CREATE TABLE PDF_Postagem (
+    ID_PDF_Postagem INT PRIMARY KEY AUTO_INCREMENT,
+    Nome_PDF_Postagem VARCHAR(50)
+);
+
+-- Tabela cria
+CREATE TABLE cria (
+    fk_Usuario_ID_Usuario INT,
+    fk_Comunidade_ID_Comunidade INT,
+    PRIMARY KEY (fk_Usuario_ID_Usuario, fk_Comunidade_ID_Comunidade),
+    FOREIGN KEY (fk_Usuario_ID_Usuario) REFERENCES Usuario(ID_Usuario) ON DELETE RESTRICT,
+    FOREIGN KEY (fk_Comunidade_ID_Comunidade) REFERENCES Comunidade(ID_Comunidade) ON DELETE RESTRICT
+);
+
+-- Tabela gerencia
+CREATE TABLE gerencia (
+    fk_Administracao_ID_Administracao INT,
+    fk_Usuario_ID_Usuario INT,
+    PRIMARY KEY (fk_Administracao_ID_Administracao, fk_Usuario_ID_Usuario),
+    FOREIGN KEY (fk_Administracao_ID_Administracao) REFERENCES Administracao(ID_Administracao) ON DELETE RESTRICT,
+    FOREIGN KEY (fk_Usuario_ID_Usuario) REFERENCES Usuario(ID_Usuario) ON DELETE SET NULL
+);
+
+-- Tabela acessa
+CREATE TABLE acessa (
+    fk_Livro_ID_Livro INT,
+    fk_Usuario_ID_Usuario INT,
+    PRIMARY KEY (fk_Livro_ID_Livro, fk_Usuario_ID_Usuario),
+    FOREIGN KEY (fk_Livro_ID_Livro) REFERENCES Livro(ID_Livro) ON DELETE SET NULL,
+    FOREIGN KEY (fk_Usuario_ID_Usuario) REFERENCES Usuario(ID_Usuario) ON DELETE SET NULL
+);
+
+-- Tabela tem
+CREATE TABLE tem (
+    fk_Livro_ID_Livro INT,
+    fk_Genero_ID_Genero INT,
+    PRIMARY KEY (fk_Livro_ID_Livro, fk_Genero_ID_Genero),
+    FOREIGN KEY (fk_Livro_ID_Livro) REFERENCES Livro(ID_Livro) ON DELETE SET NULL,
+    FOREIGN KEY (fk_Genero_ID_Genero) REFERENCES Genero(ID_Genero) ON DELETE SET NULL
+);
