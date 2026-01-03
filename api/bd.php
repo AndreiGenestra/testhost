@@ -14,9 +14,9 @@ class BancodeDados {
 */
 /* BD CASA DO ANDREI */
  
-    private $host = "compartilhador-bibliotec.c.aivencloud.com"; 	// Nome ou IP do Servidor
-    private $user = "avnadmin"; 		// Usuário do Servidor MySQL
-    private $senha = "AVNS_ZoJE1uI8A3jmvl1DCEx"; 		// Senha do Usuário MySQL
+    private $host = ""; 	// Nome ou IP do Servidor
+    private $user = ""; 		// Usuário do Servidor MySQL
+    private $senha = ""; 		// Senha do Usuário MySQL
     private $banco = "compartilhador"; 		// Nome do seu Banco de Dados
     public $conn;
 
